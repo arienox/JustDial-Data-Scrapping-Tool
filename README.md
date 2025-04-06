@@ -1,88 +1,88 @@
-# Just-Dial-Scrapper-Tool
+# JustDial Data Scraper
 
-A powerful web scraping tool for extracting business information from JustDial. This tool uses Selenium with advanced anti-detection measures to reliably scrape business listings.
+An advanced web scraping solution designed to extract business information from JustDial. Built with Selenium and sophisticated anti-detection mechanisms for reliable data collection.
 
-## Features
+## Key Features
 
-- **Smart Data Extraction:** Extracts business names, addresses, phone numbers, ratings, reviews, and webpage URLs
-- **Duplicate Prevention:** Automatically checks for and filters out duplicate entries
-- **Anti-Detection Measures:** Uses various stealth techniques to avoid being blocked
-- **Human-like Behavior:** Implements random delays, scrolling patterns, and mouse movements
-- **Robust Phone Number Extraction:** Multiple methods to reliably extract contact information
-- **Flexible Input:** Accept direct URLs or city/keyword combinations
-- **CSV Export:** Saves data in a clean, organized CSV format
+- **Comprehensive Data Collection:** Captures business details including names, locations, contact information, ratings, reviews, and website links
+- **Intelligent Duplicate Management:** Built-in system to identify and eliminate duplicate entries
+- **Advanced Anti-Blocking:** Implements multiple stealth techniques to prevent detection
+- **Natural Interaction:** Simulates human behavior through randomized actions and movements
+- **Enhanced Contact Detection:** Sophisticated algorithms for accurate phone number extraction
+- **Versatile Input Options:** Supports both direct URLs and city/keyword search combinations
+- **Structured Output:** Organizes collected data into well-formatted CSV files
 
-## Requirements
+## Prerequisites
 
 - Python 3.x
-- Chrome Browser
-- Required Python packages (install using `pip install -r requirements.txt`):
+- Google Chrome
+- Python dependencies (install via `pip install -r requirements.txt`):
   - selenium
   - pandas
   - webdriver_manager
 
-## Installation
+## Setup Instructions
 
-1. Clone the repository:
+1. Download the repository:
    ```bash
    git clone https://github.com/arienox/Just-Dial-Scrapper-Tool.git
    cd Just-Dial-Scrapper-Tool
    ```
 
-2. Install dependencies:
+2. Install required packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Usage
+## How to Use
 
-1. Run the script:
+1. Launch the program:
    ```bash
    python main.py
    ```
 
-2. Choose your input method:
-   - Option 1: Provide a direct JustDial URL
-   - Option 2: Enter city name and search keyword
+2. Select your preferred input method:
+   - Direct URL input
+   - City and keyword combination
 
-3. The script will:
-   - Load any existing data to prevent duplicates
-   - Open Chrome and navigate to JustDial
-   - Start collecting data while scrolling
-   - Save results to a timestamped CSV file
+3. The program will:
+   - Import existing data to maintain uniqueness
+   - Launch Chrome and access JustDial
+   - Collect data while simulating natural browsing
+   - Export results to a timestamped CSV file
 
-## Features in Detail
+## Detailed Features
 
-### Duplicate Prevention
-- Checks against existing CSV files
-- Prevents duplicate entries within the same session
-- Uses business name, address, and phone as unique identifiers
+### Duplicate Management System
+- Cross-references with existing data files
+- Prevents duplicate entries during active sessions
+- Uses composite keys (name, address, phone) for uniqueness
 
-### Anti-Detection Measures
-- Random delays between actions
-- Human-like scrolling patterns
-- Random mouse movements
-- Stealth mode configurations
-- Multiple strategies for loading more content
+### Anti-Detection System
+- Variable timing between actions
+- Natural scrolling behavior
+- Randomized cursor movements
+- Enhanced browser stealth settings
+- Multiple content loading strategies
 
-### Data Extraction
+### Data Collection Capabilities
 - Business Names
-- Addresses
-- Phone Numbers (multiple extraction methods)
-- Ratings
-- Number of Reviews
-- Webpage URLs
+- Physical Addresses
+- Contact Numbers (using multiple extraction techniques)
+- Customer Ratings
+- Review Counts
+- Business Website Links
 
 ## Contributing
 
-Feel free to:
-- Report issues
-- Suggest improvements
-- Submit pull requests
+We welcome:
+- Bug reports
+- Feature suggestions
+- Code contributions
 
-## Disclaimer
+## Legal Notice
 
-This tool is for educational purposes only. Please check and comply with JustDial's terms of service and robots.txt before using this tool.
+This tool is intended for educational purposes. Users should review and adhere to JustDial's terms of service and robots.txt guidelines.
 
 ## Screenshots 
 
