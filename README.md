@@ -1,35 +1,88 @@
-# JustDial Data Scraping Script - 2024 August Working Confirmed
+# Just-Dial-Scrapper-Tool
 
-This script uses Selenium to scrape data from Justdial. It automates the process of opening a webpage, handling popups, scrolling, and extracting contact information, then saves the data into a CSV file.
+A powerful web scraping tool for extracting business information from JustDial. This tool uses Selenium with advanced anti-detection measures to reliably scrape business listings.
 
 ## Features
 
-- **Dynamic URL Generation:** Constructs the URL based on user input for city and keyword.
-- **Popup Handling:** Automatically closes certain popups that may interfere with scraping.
-- **Human-like Scrolling:** Scrolls the page smoothly to load more content.
-- **Data Extraction:** Collects names, addresses, and phone numbers.
-- **Data Saving:** Saves the extracted data in a CSV file within a `Scrapped` folder, named after the search keyword.
+- **Smart Data Extraction:** Extracts business names, addresses, phone numbers, ratings, reviews, and webpage URLs
+- **Duplicate Prevention:** Automatically checks for and filters out duplicate entries
+- **Anti-Detection Measures:** Uses various stealth techniques to avoid being blocked
+- **Human-like Behavior:** Implements random delays, scrolling patterns, and mouse movements
+- **Robust Phone Number Extraction:** Multiple methods to reliably extract contact information
+- **Flexible Input:** Accept direct URLs or city/keyword combinations
+- **CSV Export:** Saves data in a clean, organized CSV format
 
-## Prerequisites
-
-Before running the script, make sure you have the following installed:
+## Requirements
 
 - Python 3.x
-- pip (Python package installer)
+- Chrome Browser
+- Required Python packages (install using `pip install -r requirements.txt`):
+  - selenium
+  - pandas
+  - webdriver_manager
 
 ## Installation
 
-1. **Clone or Download the Repository**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/arienox/Just-Dial-Scrapper-Tool.git
+   cd Just-Dial-Scrapper-Tool
+   ```
 
-   Clone the repository to your local machine or download the script file:
-
-   ```sh
-   git clone https://github.com/r7avi/JustDial-Data-Scrapper.git
-   cd JustDial-Data-Scrapper
+2. Install dependencies:
+   ```bash
    pip install -r requirements.txt
+   ```
 
-## NOTE :
-Please Request Issue if you need any Upgrades or Feature, Iam happy to Fix or Add feature. & New Ideas welcome
+## Usage
+
+1. Run the script:
+   ```bash
+   python main.py
+   ```
+
+2. Choose your input method:
+   - Option 1: Provide a direct JustDial URL
+   - Option 2: Enter city name and search keyword
+
+3. The script will:
+   - Load any existing data to prevent duplicates
+   - Open Chrome and navigate to JustDial
+   - Start collecting data while scrolling
+   - Save results to a timestamped CSV file
+
+## Features in Detail
+
+### Duplicate Prevention
+- Checks against existing CSV files
+- Prevents duplicate entries within the same session
+- Uses business name, address, and phone as unique identifiers
+
+### Anti-Detection Measures
+- Random delays between actions
+- Human-like scrolling patterns
+- Random mouse movements
+- Stealth mode configurations
+- Multiple strategies for loading more content
+
+### Data Extraction
+- Business Names
+- Addresses
+- Phone Numbers (multiple extraction methods)
+- Ratings
+- Number of Reviews
+- Webpage URLs
+
+## Contributing
+
+Feel free to:
+- Report issues
+- Suggest improvements
+- Submit pull requests
+
+## Disclaimer
+
+This tool is for educational purposes only. Please check and comply with JustDial's terms of service and robots.txt before using this tool.
 
 ## Screenshots 
 

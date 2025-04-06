@@ -1,3 +1,4 @@
-selenium
-webdriver_manager
-pandas
+selenium>=4.16.0
+pandas>=2.2.0
+webdriver_manager>=4.0.1
+requests>=2.31.0
