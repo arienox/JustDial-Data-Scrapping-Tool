@@ -45,76 +45,57 @@ def smooth_scroll_to(driver, target_position, duration=2):
     # Ensure we end exactly at the target position
     driver.execute_script(f"window.scrollTo(0, {target_position});")
 
-def human_like_scroll(driver, min_scroll_down=9, max_scroll_down=10, min_scroll_up=9, max_scroll_up=10, scroll_pause_range=(1, 2), stop_file='stop.txt'):
+def human_like_scroll(driver, min_scroll_down=15, max_scroll_down=20, min_scroll_up=12, max_scroll_up=15, scroll_pause_range=(0.5, 1.5), stop_file='stop.txt', scroll_amount=None):
+    """
+    Scroll the page in a human-like manner with random pauses and occasional scrolls up.
+    
+    Args:
+        driver: The Selenium WebDriver instance
+        min_scroll_down: Minimum pixels to scroll down
+        max_scroll_down: Maximum pixels to scroll down
+        min_scroll_up: Minimum pixels to scroll up
+        max_scroll_up: Maximum pixels to scroll up
+        scroll_pause_range: Range of seconds to pause between scrolls
+        stop_file: File to check for stopping the scrolling
+        scroll_amount: Optional specific amount to scroll (overrides min/max_scroll_down)
+    """
     last_height = driver.execute_script("return document.body.scrollHeight")
-    last_position = driver.execute_script("return window.pageYOffset")  # Store the last scroll position
-    last_content_check_time = time.time()  # Set to current time
-    content_check_interval = 5  # Time in seconds to check if new content is loaded
-
-    while True:  # Infinite loop for continuous scrolling
-        # Scrolling Down Phase
-        total_scroll_down = random.randint(min_scroll_down, max_scroll_down)
-        scroll_down_count = 0
-        while scroll_down_count < total_scroll_down:
-            # Check if stop file exists
-            if os.path.exists(stop_file):
-                print("Stop file detected. Stopping scroll.")
-                return  # Exit the function and stop scrolling
-
-            driver.execute_script("window.scrollBy(0, window.innerHeight / 2);")
-            scroll_down_count += 1
-            print(f"Scrolling down, attempt {scroll_down_count}/{total_scroll_down}")
-
-            # Check and handle the popup button
-            check_and_click_close_popup(driver)
-
-            time.sleep(random.uniform(*scroll_pause_range))
-
-            # Check if new content is loaded
-            new_height = driver.execute_script("return document.body.scrollHeight")
-            if new_height != last_height:
-                print("New content detected.")
-                last_height = new_height  # Update last_height if new content is loaded
-                scroll_down_count = 0  # Reset scroll down counter when new content is detected
-                last_content_check_time = time.time()  # Update the content check time
-                last_position = driver.execute_script("return window.pageYOffset")  # Update last known position
-
-        # Scrolling Up Phase (only if new content was detected)
-        total_scroll_up = random.randint(min_scroll_up, max_scroll_up)
-        scroll_up_count = 0
-        while scroll_up_count < total_scroll_up:
-            # Check if stop file exists
-            if os.path.exists(stop_file):
-                print("Stop file detected. Stopping scroll.")
-                return  # Exit the function and stop scrolling
-
-            driver.execute_script("window.scrollBy(0, -window.innerHeight / 2);")
-            scroll_up_count += 1
-            print(f"Scrolling up, attempt {scroll_up_count}/{total_scroll_up}")
-
-            # Check and handle the popup button
-            check_and_click_close_popup(driver)
-
-            time.sleep(random.uniform(*scroll_pause_range))
-
-            # Check if new content is loaded
-            new_height = driver.execute_script("return document.body.scrollHeight")
-            if new_height != last_height:
-                print("New content detected.")
-                last_height = new_height  # Update last_height if new content is loaded
-                scroll_up_count = 0  # Reset scroll up counter when new content is detected
-                last_content_check_time = time.time()  # Update the content check time
-                last_position = driver.execute_script("return window.pageYOffset")  # Update last known position
-
-        # If no new content is detected for a long time, scroll to the top like a human, wait a bit, and scroll back to the older location
-        if time.time() - last_content_check_time > content_check_interval:
-            print("No new content detected for a while. Smoothly scrolling to the top.")
-            smooth_scroll_to(driver, 0, duration=3)  # Smoothly scroll to the top in 3 seconds
-            time.sleep(3)  # Wait for 3 seconds
-
-            print(f"Smoothly scrolling back to last known position: {last_position}")
-            smooth_scroll_to(driver, last_position, duration=3)  # Smoothly scroll back to the last position in 3 seconds
-
-            last_content_check_time = time.time()  # Reset the content check timer
+    last_position = driver.execute_script("return window.pageYOffset")
+    
+    # Check if stop file exists
+    if os.path.exists(stop_file):
+        print(f"Stop file '{stop_file}' detected. Stopping scroll.")
+        return
+    
+    # Determine scroll amount
+    if scroll_amount is not None:
+        pixels_to_scroll = scroll_amount
+    else:
+        pixels_to_scroll = random.randint(min_scroll_down, max_scroll_down)
+    
+    # Scroll down
+    new_position = last_position + pixels_to_scroll
+    driver.execute_script(f"window.scrollTo(0, {new_position});")
+    
+    # Random pause
+    pause_time = random.uniform(scroll_pause_range[0], scroll_pause_range[1])
+    time.sleep(pause_time)
+    
+    # Occasionally scroll up a bit (20% chance)
+    if random.random() < 0.2:
+        pixels_up = random.randint(min_scroll_up, max_scroll_up)
+        up_position = max(0, new_position - pixels_up)
+        driver.execute_script(f"window.scrollTo(0, {up_position});")
+        time.sleep(random.uniform(scroll_pause_range[0], scroll_pause_range[1]))
+        driver.execute_script(f"window.scrollTo(0, {new_position});")
+    
+    # Check if we've reached the bottom
+    new_height = driver.execute_script("return document.body.scrollHeight")
+    if new_height == last_height:
+        # Try to trigger loading more content
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(random.uniform(1, 2))
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight - 500);")
+        time.sleep(random.uniform(1, 2))
 
 

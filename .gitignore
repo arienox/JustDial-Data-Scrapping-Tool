@@ -10,12 +10,25 @@ temp_url.txt
 
 # Python cache files
 __pycache__/
-*.pyc
-*.pyo
-
+*.py[cod]
+*$py.class
 
 # Other files and directories to ignore
 *.log
 *.db
 *.sqlite3
 *.DS_Store
+
+# CSV files
+*.csv
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
